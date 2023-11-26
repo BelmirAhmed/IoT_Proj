@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
 import rest_framework 
-from twilio.rest import Client
+
 @api_view(["GET","POST"]) 
 def dhtser (request): 
     if request.method=="GET":
@@ -26,11 +26,7 @@ def dhtser (request):
                 recipient_list = ['med88mir@gmail.com'] 
                 send_mail(subject, message, email_from, recipient_list)
                 # Alertwhatsapp 
-                account_sid = 'ACacc71d98fff16033441a1e85994d082b' 
-                auth_token = 'ACacc71d98fff16033441a1e85994d082b' 
-                client = Client(account_sid, auth_token) 
-                message = client.messages.create(from_='whatsapp:+14155238886',body='Il y a une alerte importante sur votre Capteur la température dépasse le seuil', to='whatsapp:+212641414241') 
-
+                
             return Response(serial.data, status=status.HTTP_201_CREATED)
         else: 
             return Response(serial.id, status=status.HTTP_400_CREATED)
