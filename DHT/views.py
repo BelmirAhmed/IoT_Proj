@@ -108,8 +108,8 @@ def dht_tab(request):
 
 
 def sendtele():
-    token = '6547844662:AAG32FeHlHS-fEL9xBOP5hyQQEfBW7HqIB8' #################### 
-    rece_id = 1146522665 ########################################################
-    bot = telepot.Bot(token)
+    token = '6377504599:AAFkdgwr9dtYi0WzfJasrl6NZRT92mpJSRQ' #################### 
+    rece_id = 6377504599 ########################################################
+    bot = telpot.Bot(token)
     bot.sendMessage(rece_id, 'la température depasse la normale')
     print(bot.sendMessage(rece_id, 'OK.'))

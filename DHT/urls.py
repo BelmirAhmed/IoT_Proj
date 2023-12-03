@@ -4,6 +4,7 @@ from . import api
 urlpatterns=[
     path('',views.test),
     path("api",api.dhtser,name='json'),
+    path("api/post",api.Dhtviews.as_view(),name='json'),
     path('download_csv/', views.download_csv, name='download_csv'),
     path('index/',views.table,name='table'),
     path('myChart/',views.graphique,name='myChart'),
