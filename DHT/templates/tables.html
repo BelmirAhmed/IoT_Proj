@@ -16,7 +16,7 @@
     <title>Iot censor</title>
   </head>
   <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar w/ text</a>
+  <a class="navbar-brand" href="#">IoT</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -28,9 +28,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Mobile app</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">download CSV</a>
-      </li>
+      
     </ul>
     
   </div>
@@ -49,10 +47,11 @@
 <div class="container">
   
   <div class="input-group input-daterange">
-    <input type="date"  id="startdate" value="2023-10-23" onchange="filterData()">
-    <input type="date"  id="enddate"  onchange="filterData()">
+    <input type="datetime-local"  id="startdate" value="2023-11-12T19:30" onchange="filterData()">
+    <input type="datetime-local" id="enddate" value="2023-11-26T19:30"  onchange="filterData()">
 </div>
-  
+  <br></br>
+  <button class="btn btn-primary" onclick="downloadCSV()">Download CSV</button>
 </div>
 
 </div>
@@ -61,6 +60,7 @@
     <br></br>
     <canvas id="myAreaChartTemp" width="100%" height="60"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    
   </div>
 
   <script>
@@ -122,14 +122,13 @@
 
       function filterData(){
         const dates2 = [...dates]
-        
         const  startdate =document.getElementById('startdate').value;
         const  enddate =document.getElementById('enddate').value;
         console.log(startdate);
-        //console.log(dates2)
-        const indexstartdate = dates2.indexOf(startdate);
-        //const indexstartdate = dates2.indexOf('Nov. 20, 2023,6:50p.m');
-        console.log(indexstartdate)
+        console.log(dates2)
+        const indexstartdate = dates2.indexOf(startdate.value);
+        
+        //console.log(indexstartdate)
         
         if (indexstartdate !== -1) {
              console.log("Element found at index:", indexstartdate);
@@ -139,6 +138,24 @@
             
       }
 
+      // downloadCSV
+      function downloadCSV() {
+    fetch('/download_csv/')  // Replace with your actual URL
+        .then(response => response.text())
+        .then(csvContent => {
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'dht.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Error downloading CSV:', error));
+}
 
   </script>
 </div>
