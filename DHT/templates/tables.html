@@ -48,7 +48,7 @@
   
   <div class="input-group input-daterange">
     <input type="datetime-local"  id="startdate" value="2023-11-12T19:30" onchange="filterData()">
-    <input type="datetime-local" id="enddate" value="2023-11-26T19:30"  onchange="filterData()">
+    <input type="datetime-local" id="enddate" value="2023-12-26T19:30"  onchange="filterData()">
 </div>
   <br></br>
   <button class="btn btn-primary" onclick="downloadCSV()">Download CSV</button>
@@ -119,24 +119,34 @@
     }
     }
     });
-
+    // filter date
       function filterData(){
         const dates2 = [...dates]
         const  startdate =document.getElementById('startdate').value;
         const  enddate =document.getElementById('enddate').value;
-        console.log(startdate);
-        console.log(dates2)
-        const indexstartdate = dates2.indexOf(startdate.value);
+        //console.log(startdate);
+        //console.log(dates2)
+       
+        const indexstartdate = dates2.indexOf(startdate);
+        const indexenddate = dates2.indexOf(enddate);
         
         //console.log(indexstartdate)
         
-        if (indexstartdate !== -1) {
-             console.log("Element found at index:", indexstartdate);
-          } else {
-                  console.log("Element not found in the array.");
-            }
-            
+        // slice the array
+
+        const filteDate=dates2.slice(indexstartdate,indexenddate+1);
+        myChart.config.data.labels = filteDate;
+        myChart.update();
+
+        myChartTemp.config.data.labels = filteDate;
+        myChartTemp.update();
+        
       }
+
+
+
+
+
 
       // downloadCSV
       function downloadCSV() {
