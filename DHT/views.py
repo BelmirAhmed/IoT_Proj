@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from datetime import timedelta
 #import telepot
+
 from .models import Dht11
 def test(request):
     return HttpResponse('Iot Project')
@@ -106,10 +107,10 @@ def dht_tab(request):
     s={'tab':tab}
     return render(request,'tables.html',s)
 
-
 def sendtele():
     token = '6377504599:AAFkdgwr9dtYi0WzfJasrl6NZRT92mpJSRQ' #################### 
     rece_id = 6377504599 ########################################################
-    bot = telpot.Bot(token)
+    bot = telepot.Bot(token)
     bot.sendMessage(rece_id, 'la température depasse la normale')
     print(bot.sendMessage(rece_id, 'OK.'))
+
